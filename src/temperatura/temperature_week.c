@@ -2,21 +2,21 @@
 
 #define DAYS 7
 
-float get_some_of_temperatures(float temp[])
+float get_sum_of_temperatures(float temp[])
 {
-    float some;
+    float sum;
     for (int i = 0; i < DAYS; i++)
     {
         printf("Digite a Temperatura do dia %d: ", i+1);
         scanf("%f", &temp[i]);
-        some += temp[i];
+        sum += temp[i];
     }
-    return some;
+    return sum;
 }
 
-float calculate_medium(float some)
+float calculate_medium(float sum)
 {
-    return (float) some / DAYS;
+    return (float) sum / DAYS;
 }
 
 int get_above_average(float temp[], float medium)

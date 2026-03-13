@@ -4,7 +4,7 @@
 
 #define MAXTAM 5
 #define ERROR 0
-#define SUCCESS 
+#define SUCCESS 1
 
 struct fila {
     int item[MAXTAM];
@@ -32,7 +32,7 @@ int queue_is_empty( Fila *f ) {
 
 // enqueue - Complexidade constante O(1)
 int enqueue( Fila *f, int valor ) {
-    if (filaCheia( f ))
+    if (queue_is_full( f ))
         return ERROR;
     else {
        // f->fim++;
@@ -47,7 +47,7 @@ int enqueue( Fila *f, int valor ) {
 
 // dequeue = Complexidade constante O(1)
 int dequeue( Fila *f, int *valor ) {
-    if (filaVazia( f ))
+    if (queue_is_empty( f ))
         return ERROR;
     else {
         *valor = f->item[f->inicio];
@@ -59,7 +59,7 @@ int dequeue( Fila *f, int *valor ) {
 
 // Complexidade constante O(1)
 int get_first( Fila *f, int *valor ) {
-    if (filaVazia( f ))
+    if (queue_is_empty( f ))
         return ERROR;
     else {
         *valor = f->item[f->inicio];
@@ -69,7 +69,7 @@ int get_first( Fila *f, int *valor ) {
 
 // Complexidade linear O(n)
 void show_queue( Fila *f ) {
-    if (filaVazia( f ))
+    if (queue_is_empty( f ))
         printf( "Fila vazia" );
     else {
         int i = f->inicio;

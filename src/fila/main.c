@@ -4,87 +4,86 @@
 #include "fila.h"
 
 #define ERROR 0
-#define SUCCESS 1
+#define SUCCESS 1 
 
 void limparTela()
 {
 #ifdef _WIN32
-    system("cls");
+    system( "cls" );
 #else
-    system("clear"); 
+    system( "clear" );
 #endif    
 }
 
 int main()
-{ 
-    Fila *f= criarFila();
-    if (f==NULL)
-      printf("Não foi possível alocar memória");
-    
-    int opcao, valor, resultado;  
-    do{
+{
+    Fila *f = new_queue();
+    if (f == NULL)
+        printf( "Não foi possível alocar memória" );
+
+    int opcao, valor, resultado;
+    do {
         limparTela();
-        printf("\n1 - Enfileirar");
-        printf("\n2 - Desenfileirar");
-        printf("\n3 - Mostrar primeiro");
-        printf("\n4 - Mostrar fila");
-        printf("\n5 - Liberar fila");
-        printf("\n6 - Sair");
-        printf("\nEscolha uma opção: ");
-        scanf("%d", &opcao);
+        printf( "\n1 - Enfileirar" );
+        printf( "\n2 - Desenfileirar" );
+        printf( "\n3 - Mostrar primeiro" );
+        printf( "\n4 - Mostrar fila" );
+        printf( "\n5 - Liberar fila" );
+        printf( "\n6 - Sair" );
+        printf( "\nEscolha uma opção: " );
+        scanf( "%d", &opcao );
 
         switch (opcao)
         {
         case 1:
-            printf("\nDigite o valor a ser enfileirado: ");
-            scanf("%d", &valor);
-            resultado = enfileirar(f, valor);
-            if (resultado==ERROR)
-              printf("\nFila cheia, não foi possível inserir");
-             else
-              printf("\n%d inserido com sucesso", valor); 
+            printf( "\nDigite o valor a ser enfileirado: " );
+            scanf( "%d", &valor );
+            resultado = enqueue( f, valor );
+            if (resultado == ERROR)
+                printf( "\nFila cheia, não foi possível inserir" );
+            else
+                printf( "\n%d inserido com sucesso", valor );
             break;
-        
+
         case 2:
-            resultado=desenfileirar(f, &valor);
-            if (resultado==ERROR)
-              printf("\nFila vazia");
+            resultado = dequeue( f, &valor );
+            if (resultado == ERROR)
+                printf( "\nFila vazia" );
             else
-              printf("\nItem %d removido", valor);
-            
+                printf( "\nItem %d removido", valor );
+
             break;
-          
+
         case 3:
-            resultado=obterPrimeiro(f, &valor);
-            if (resultado==ERROR)
-                printf("\nFila vazia");
+            resultado = get_first( f, &valor );
+            if (resultado == ERROR)
+                printf( "\nFila vazia" );
             else
-                printf("\nItem no início:  %d", valor);
-        
-            break;   
-        
-        case 4:
-            mostrarFila(f);
+                printf( "\nItem no início:  %d", valor );
+
             break;
-        
+
+        case 4:
+            show_queue( f );
+            break;
+
         case 5:
-             liberarFila(f);
-             printf("\nFila liberada e recriada");
-             f=criarFila();
-             break;   
+            free_queue( f );
+            printf( "\nFila liberada e recriada" );
+            f = new_queue();
+            break;
         case 6:
-           printf("\nSaindo...");
-           liberarFila(f);
-           break;    
+            printf( "\nSaindo..." );
+            free_queue( f );
+            break;
         default:
-            printf("\nOpção inválida");
+            printf( "\nOpção inválida" );
             break;
         }
 
         getchar();
         getchar();
-    }while (opcao!=6);  
-
+    } while (opcao != 6);
 
     return 0;
 }
